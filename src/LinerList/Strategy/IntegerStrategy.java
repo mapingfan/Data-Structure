@@ -1,4 +1,4 @@
-package LinerList;
+package LinerList.Strategy;
 
 public class IntegerStrategy implements Strategy {
     @Override

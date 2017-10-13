@@ -1,6 +1,15 @@
-package LinerList;
+package LinerList.ListArray;
 
-import java.util.Arrays;
+import LinerList.Exception.ObjectNotFoundException;
+import LinerList.Exception.OutOfBoundaryException;
+import LinerList.Interface.List;
+import LinerList.Strategy.IntegerStrategy;
+import LinerList.Strategy.Strategy;
+
+/**
+ * implement the liner list by array ;
+ * @author 马平凡
+ */
 
 public class ListArray implements List {
     private int LISTLENGTH = 8;
@@ -12,6 +21,11 @@ public class ListArray implements List {
         this.strategy = strategy;
         size = 0;
         elements = new Object[LISTLENGTH];
+    }
+
+    @Override
+    public void add(Object object) {
+        insert(size,object);
     }
 
     @Override
@@ -166,6 +180,7 @@ public class ListArray implements List {
         listArray.insertAfter(20,25);
         System.out.println(listArray.contains(3));
         System.out.println(listArray.remove(new Integer(3)));
+        listArray.add(99999);
         listArray.printList();
 
     }

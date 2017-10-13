@@ -1,6 +1,12 @@
-package LinerList;
+package LinerList.Interface;
+
+import LinerList.Exception.ObjectNotFoundException;
+import LinerList.Exception.OutOfBoundaryException;
 
 public interface List {
+
+    public void add(Object object);
+
     /**
      * @return return the size of thr list;
      */

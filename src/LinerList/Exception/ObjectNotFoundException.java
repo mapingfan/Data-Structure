@@ -1,4 +1,4 @@
-package LinerList;
+package LinerList.Exception;
 
 public class ObjectNotFoundException extends Exception {
 
