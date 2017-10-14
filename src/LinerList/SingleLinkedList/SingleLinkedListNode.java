@@ -1,5 +1,7 @@
 package LinerList.SingleLinkedList;
 
+import LinerList.Interface.Node;
+
 public class SingleLinkedListNode implements Node {
     private SingleLinkedListNode next;
     private Object element;

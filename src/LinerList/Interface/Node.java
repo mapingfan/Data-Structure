@@ -1,4 +1,4 @@
-package LinerList.SingleLinkedList;
+package LinerList.Interface;
 
 public interface Node {
     //get the data segment of the node;

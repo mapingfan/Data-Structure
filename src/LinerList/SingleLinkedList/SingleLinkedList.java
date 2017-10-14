@@ -1,8 +1,12 @@
 package LinerList.SingleLinkedList;
 
+import LinerList.DoubleLinkedList.DoubleLinkedListNode;
+import LinerList.Exception.InvalidNodeException;
 import LinerList.Exception.ObjectNotFoundException;
 import LinerList.Exception.OutOfBoundaryException;
+import LinerList.Interface.LinkedList;
 import LinerList.Interface.List;
+import LinerList.Interface.Node;
 import LinerList.Strategy.IntegerStrategy;
 import LinerList.Strategy.Strategy;
 
@@ -12,13 +16,22 @@ import LinerList.Strategy.Strategy;
  * The interface Node defines the action of the SingleLinkedListNode;
  * The class SingleLinkedListNode represents the node in the LinkedList;
  * The SingleLinkedList represents the LinkList;
+ *-----update------
+ * implement the LinkedList interface;
+ * The action of LinkedList interface is mostly about node;
+ * define SingleLinkListIterator class to iterate the list;
+ *
  * @author 马平凡
  */
 
-public class SingleLinkedList implements List {
+public class SingleLinkedList implements List, LinkedList {
     private SingleLinkedListNode head;
     private int size;
     private Strategy strategy;
+
+    public SingleLinkedListNode getHead() {
+        return head;
+    }
 
     public SingleLinkedList(Strategy strategy) {
         //with head node, storage nothing;
@@ -49,6 +62,186 @@ public class SingleLinkedList implements List {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public Node first() throws OutOfBoundaryException {
+        if (head.getNext() != null) {
+            return head.getNext();
+        }
+        throw new OutOfBoundaryException("The list is empty");
+    }
+
+    @Override
+    public Node last() throws OutOfBoundaryException {
+        if (head.getNext() != null) {
+            SingleLinkedListNode work_next = head.getNext();
+            while (work_next.getNext()!=null) {
+                work_next = work_next.getNext();
+            }
+            return work_next;
+        }
+        throw new OutOfBoundaryException("The list is empty");
+    }
+
+    @Override
+    public Node getNext(Node p) throws OutOfBoundaryException, InvalidNodeException {
+        SingleLinkedListNode tmp = (SingleLinkedListNode)p;
+        if (tmp == null) {
+            throw new InvalidNodeException("The parameter is null");
+    }
+        if (tmp == last()) {
+        throw new OutOfBoundaryException("Already the last node, no next node exists.");
+    }
+        return tmp.getNext();
+    }
+
+    @Override
+    public Node getPre(Node p) throws OutOfBoundaryException, InvalidNodeException {
+        SingleLinkedListNode cast_node = (SingleLinkedListNode)p;
+        if (cast_node == null) {
+            throw new InvalidNodeException("The parameter is null.");
+        }
+        if (cast_node == first()) {
+            throw new OutOfBoundaryException("No pre node exists.");
+        }
+        SingleLinkedListNode tmp = head;
+        SingleLinkedListNode work_next = head.getNext();
+        while (work_next != null) {
+
+            if (strategy.equal(work_next.getData(),cast_node.getData())) {
+               break;
+            } else {
+                tmp = work_next;
+                work_next = work_next.getNext();
+            }
+        }
+        return tmp;
+    }
+
+    @Override
+    public Node insertFirst(Object object) {
+        SingleLinkedListNode  warp_node = new SingleLinkedListNode(object);
+        warp_node.setNext(head.getNext());
+        head.setNext(warp_node);
+        size++;
+        return warp_node;
+    }
+
+    @Override
+    public Node insertLast(Object object) {
+        SingleLinkedListNode  warp_node = new SingleLinkedListNode(object);
+        SingleLinkedListNode cast_node = (SingleLinkedListNode)last();
+        warp_node.setNext(cast_node.getNext());
+        cast_node.setNext(warp_node);
+        size++;
+        return warp_node;
+    }
+
+    @Override
+    public Node insertAfter(Node node, Object object) throws InvalidNodeException {
+        SingleLinkedListNode cast_node = (SingleLinkedListNode)node;
+        if (cast_node == null) {
+            throw new InvalidNodeException("The parameter is null.");
+        }
+        if (cast_node == head) {
+            throw new InvalidNodeException("The parameter node equals to head node.");
+        }
+        int index = indexOf(cast_node.getData());
+        if (contains(cast_node.getData())) {
+
+            insert(index+1,object);
+        }
+        return getNode(index+1);
+    }
+
+    /**
+     * A method to get Node by index value;
+     * @param pos
+     * @return
+     * @throws OutOfBoundaryException
+     */
+    private Node getNode(int pos) throws OutOfBoundaryException {
+        if (pos < 0 || pos >= size) {
+            throw new OutOfBoundaryException("The pos value is not proper.");
+        }
+        int index = 0;
+        SingleLinkedListNode work_next = head.getNext();
+        while (work_next != null && index < pos) {
+            index++;
+            work_next = work_next.getNext();
+        }
+        return work_next;
+    }
+
+    @Override
+    public Node insertBefore(Node node, Object object) throws InvalidNodeException {
+        SingleLinkedListNode cast_node = (SingleLinkedListNode)node;
+        if (cast_node == null) {
+            throw new InvalidNodeException("The parameter is null.");
+        }
+        if (cast_node == head) {
+            throw new InvalidNodeException("The parameter is illegal.");
+        }
+
+        int index = indexOf(cast_node.getData());
+        if (contains(cast_node.getData())) {
+            insert(index,object);
+        }
+        return getNode(index);
+    }
+
+    @Override
+    public Object remove(Node node) throws InvalidNodeException {
+        SingleLinkedListNode cast_node = (SingleLinkedListNode)node;
+        if (cast_node == null) {
+            throw new InvalidNodeException("The parameter is null.");
+        }
+        if (cast_node == head) {
+            throw new InvalidNodeException("The parameter node equals to head.");
+        }
+        if (!contains(cast_node.getData())) {
+            throw new InvalidNodeException("The node is not in the list.");
+        } else {
+            int index = indexOf(cast_node.getData());
+            return remove(index);
+        }
+    }
+
+    @Override
+    public Object removeFirst() throws OutOfBoundaryException {
+        if (head.getNext() == null) {
+            throw new OutOfBoundaryException("The list is empty now.");
+        } else {
+            return remove(0);
+        }
+    }
+
+    @Override
+    public Object removeLast() throws OutOfBoundaryException {
+        if (head.getNext() == null) {
+            throw new OutOfBoundaryException("The list is empty now.");
+        } else {
+            return remove(size-1);
+        }
+    }
+
+    @Override
+    public Object replace(Node node, Object object) throws InvalidNodeException {
+        SingleLinkedListNode cast_node = (SingleLinkedListNode)node;
+        if (cast_node == null) {
+            throw new InvalidNodeException("The parameter node is null.");
+        }
+        if (cast_node == head) {
+            throw new InvalidNodeException("The node equals to the head node.");
+        }
+        int index = indexOf(cast_node.getData());
+        return replace(index,object);
+    }
+
+    @Override
+    public SingleLinkListIterator elements() {
+        return new SingleLinkListIterator(this);
     }
 
     @Override
@@ -186,7 +379,7 @@ public class SingleLinkedList implements List {
         }
     }
 
-    public static void main(String[] args) throws ObjectNotFoundException {
+    public static void main(String[] args) throws ObjectNotFoundException, InvalidNodeException {
         SingleLinkedList linkedList = new SingleLinkedList(new IntegerStrategy());
         System.out.println("Now, the size is :"+linkedList.getSize());
         System.out.println(linkedList.isEmpty());
@@ -205,7 +398,43 @@ public class SingleLinkedList implements List {
         linkedList.add(new Integer(678));
         linkedList.add(new SingleLinkedListNode(8888));
         linkedList.add(new SingleLinkedListNode(888899));
-
         linkedList.printList();
+        System.out.println();
+        System.out.println(linkedList.first().getData());
+        System.out.println(linkedList.last().getData());
+        //System.out.println(linkedList.getNext(linkedList.last()));
+        System.out.println(linkedList.getPre(linkedList.getNode(7)).getData());
+        linkedList.insertFirst(798);
+        linkedList.printList();
+        System.out.println();
+        linkedList.insertLast(799);
+        linkedList.printList();
+        System.out.println();
+        linkedList.insertAfter(linkedList.getNode(0),333);
+        linkedList.printList();
+        System.out.println();
+        linkedList.insertBefore(linkedList.getNode(1),333);
+        linkedList.printList();
+        System.out.println();
+        System.out.println(linkedList.remove(linkedList.getNode(7)));
+        linkedList.printList();
+        System.out.println();
+        System.out.println(linkedList.removeLast());
+        linkedList.printList();
+        System.out.println(linkedList.getNode(3));
+        System.out.println(linkedList.getNode(3));
+        System.out.println(linkedList.size);
+        linkedList.replace(linkedList.getNode(3),13232);
+        linkedList.printList();
+        System.out.println();
+        SingleLinkListIterator iterator = (SingleLinkListIterator) linkedList.elements();
+        while (iterator.hasNext()) {
+            SingleLinkedListNode tmp = (SingleLinkedListNode) iterator.next();
+            System.out.print(tmp.getData()+" ");
+            //System.out.print(iterator.getCurrent().getData()+ " ");
+
+        }
+
+
     }
 }
