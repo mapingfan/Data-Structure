@@ -163,6 +163,10 @@ public class ListArray implements List {
         //System.out.println(Arrays.toString(elements));
     }
 
+    public ListArrayIterator elements() {
+        return new ListArrayIterator(this);
+    }
+
     public static void main(String[] args) throws ObjectNotFoundException {
         ListArray listArray = new ListArray(new IntegerStrategy());
         for (int i = 0; i < 20; i++) {
@@ -182,6 +186,12 @@ public class ListArray implements List {
         System.out.println(listArray.remove(new Integer(3)));
         listArray.add(99999);
         listArray.printList();
+        System.out.println();
+        ListArrayIterator iterator = listArray.elements();
+        while (iterator.hasNext()) {
+            Object tmp = iterator.next();
+            System.out.print(tmp+" ");
+        }
 
     }
 }
