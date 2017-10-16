@@ -106,16 +106,20 @@ public class QueueArray implements Queue {
         queueArray.enqueue(new Integer(3434));
         queueArray.enqueue(new Integer(34345));
         queueArray.dequeue();
+        queueArray.enqueue(new Integer(343433));
+        queueArray.dequeue();
+        queueArray.dequeue();
+
         System.out.println(queueArray.isFull());
         System.out.println(queueArray.getSize());
         System.out.println(queueArray.getSize());
         System.out.println(queueArray.getFront());
         System.out.println(queueArray.getRear());
         QueueArrayIterator iterator = queueArray.iterator();
-        /*while (iterator.hasNext()) {
+        while (iterator.hasNext()) {
             Object tmp = iterator.next();
             System.out.print(tmp+" ");
-        }*/
+        }
     }
 
 
