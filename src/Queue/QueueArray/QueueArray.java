@@ -4,9 +4,12 @@ import Queue.Exception.QueueEmptyException;
 import Queue.Exception.QueueFullException;
 import Queue.Interface.Queue;
 
+/**
+ * This queue use the assistant variable size to decide whether the queue is full or empty.
+ */
 public class QueueArray implements Queue {
     private Object[] elements;
-    private int defaultSize = 4;
+    private int defaultSize = 8;
     private int front;
     private int rear;
     private int size;
