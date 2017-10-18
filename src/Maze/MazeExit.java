@@ -48,9 +48,9 @@ public class MazeExit {
                 while (!stackArray.isEmpty()) {
                     Cell tmp = (Cell) stackArray.pop();
                     tmp.c = '*';
-                    /*while (!stackArray.isEmpty() && !isAdjoin(tmp, (Cell) stackArray.peek())) {
+                    while (!stackArray.isEmpty() && !isAdjoin(tmp, (Cell) stackArray.peek())) {
                         stackArray.pop();
-                    }*/
+                    }
                 }
                 System.out.println("Find path.");
                 printMaze(cells);
