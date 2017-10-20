@@ -1,10 +1,10 @@
 import java.util.Arrays;
 
-public class SelectSort {
+public class SelectionSortV2 {
 
     public static void main(String[] args) {
         int[] array = {1, 3, 0, 99, 11, 22, 18, 0};
-        SelectSort.selectSort(array);
+        SelectionSortV2.selectSort(array);
     }
 
     /**
