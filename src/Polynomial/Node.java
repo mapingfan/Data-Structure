@@ -2,7 +2,7 @@ package Polynomial;
 
 class Node {
     int exponential; //每一项的指数；
-    int coefficient; //每一项的指数；
+    int coefficient; //每一项的系数；
     Node next; //指向下一项；
 
     public Node(int exponential, int coefficent) {
