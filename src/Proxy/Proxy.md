@@ -13,3 +13,6 @@ JDK的动态代理需要接口,所以代理的类必须要实现接口.如果没
 所以`CGLib`代理类返回的对象是目标类的子类.
 
 到这个地方,代理只是入了门,有了最浅显的认识.以后随着学习的深入,继续了解.
+
+ps:如果出现`使用CGlib出现java.lang.NoClassDefFoundError: org/objectweb/asm/Type异常`,
+那么是缺少相关的`jar`包,记得引入.
