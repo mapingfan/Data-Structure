@@ -2,6 +2,11 @@ package Polynomial;
 
 import Polynomial.Polynomial;
 
+import java.util.AbstractList;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * p1 = 3x^5+4x^2+12;
  * p2 = 4x^3+12x+9;
