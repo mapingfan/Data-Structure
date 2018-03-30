@@ -3,6 +3,7 @@ package SortAlgorithm.BubbleSort;
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.Random;
 
 /**
  * 实现冒泡排序算法.
@@ -87,11 +88,20 @@ public class BubbleSort {
     }
 
     public static void main(String[] args) {
-        int[] arr = {1,1,2,0,9,3,12,7,8,3,4,65,22};
-        System.out.println("排序前:");
-        System.out.println(Arrays.toString(arr));
-        System.out.println("排序后:");
+        Random random = new Random();
+        int[] arr = new int[1000000];
+        for (int i = 0; i < 1000000; i++) {
+            arr[i] = (random.nextInt(100000));
+        }
+        long currentTimeMillis = System.currentTimeMillis();
         bubbleSortV3(arr);
-        System.out.println(Arrays.toString(arr));
+        System.out.println((System.currentTimeMillis() - currentTimeMillis)/1000);
+        for (int i = 0; i < arr.length; i++) {
+            if (i % 10 == 0) {
+                System.out.println();
+            }
+            System.out.print(" "+arr[i]);
+
+        }
     }
 }
