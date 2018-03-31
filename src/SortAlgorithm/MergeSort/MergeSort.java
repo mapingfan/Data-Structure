@@ -1,11 +1,21 @@
 package SortAlgorithm.MergeSort;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Random;
 
 public class MergeSort {
-
+//    实现思路参考浙大数据结构慕课.子序列有序,然后合并子序列.
+    /**
+     * @param arr 待排序数组
+     * @param tmp 临时数组,存放归并后的排序值.
+     * @param ls 左子序列左边界开始位置.
+     * @param le 左子序列右边界位置
+     * @param rs 右子序列左边界
+     * @param re 右子序列右边界
+     *           s=start,e=end
+     */
+    /*
+    实现思路:整个序列有序 <==> 两个子序列有序+(非降序合并连个有序子序列)
+    所以需要一个合并函数merge.
+     */
     private static void merge(int[] arr, int[] tmp, int ls, int le, int rs, int re) {
         int index = ls;
         int copy_ls = ls;
@@ -29,7 +39,7 @@ public class MergeSort {
     }
 
     private static void mSort(int[] arr, int[] tmp, int ls, int re) {
-        int center = ls + (re - ls) / 2;
+        int center = ls + (re - ls) / 2; //这样写安全,直接两个int相加会溢出.
         if (ls < re) {
             mSort(arr, tmp, ls, center);
             mSort(arr, tmp, center + 1, re);
