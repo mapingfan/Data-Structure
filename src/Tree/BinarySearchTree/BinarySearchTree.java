@@ -1,14 +1,15 @@
 package Tree.BinarySearchTree;
 
-import java.util.Scanner;
-import java.util.logging.Level;
+import java.util.LinkedList;
 
+/**
+ * 二叉搜索树的实现.最为核心的是节点的删除实现,要考虑多种情况.
+ */
 public class BinarySearchTree implements Tree {
 
     private Node root;
 
     public BinarySearchTree() {
-        root = null;
     }
 
     /**
@@ -201,6 +202,7 @@ public class BinarySearchTree implements Tree {
         }
     }
 
+    //    递归实现二叉树前序遍历.
     @Override
     public void preOrder(Node root) {
         if (root != null) {
@@ -208,6 +210,28 @@ public class BinarySearchTree implements Tree {
             preOrder(root.leftChild);
             preOrder(root.rightChild);
         }
+    }
+
+    @Override
+    public void preOrderV2(Node root) {
+//        利用栈还实现非递归版本.根左右.利用链表模拟栈.addFirst,removeFirst,isEmpty
+        if (root != null) {
+            LinkedList<Node> list = new LinkedList<>();
+            list.addFirst(root);
+            while (!list.isEmpty()) {
+                Node node = list.removeFirst();
+                System.out.println(node);
+                if (node.rightChild != null) {
+                    list.add(node.rightChild);
+                }
+                if (node.leftChild != null) {
+                    list.add(node.leftChild);
+                }
+            }
+        } else {
+            System.out.println("树空.");
+        }
+        return;
     }
 
     @Override
@@ -220,11 +244,48 @@ public class BinarySearchTree implements Tree {
     }
 
     @Override
+    public void inOrderV2(Node root) {
+        LinkedList<Node> list = new LinkedList<>();
+        while (root != null || list.size() > 0) {
+            while (root != null) {  //一路往左走.左边节点入栈.
+                list.addFirst(root);
+                root = root.leftChild;
+            }
+            if (list.size() > 0) {
+                root = list.removeFirst();
+                System.out.println(root);
+                root = root.rightChild;
+            }
+        }
+    }
+
+    @Override
     public void postOrder(Node root) {
         if (root != null) {
             postOrder(root.leftChild);
             postOrder(root.rightChild);
             System.out.print(root + " ");
+        }
+    }
+
+    @Override
+    public void postOrderV2(Node root) {
+        LinkedList<Node> list = new LinkedList<>();
+        while (root != null || list.size() > 0) {
+            while (root != null) {
+                list.addFirst(root);
+                if (root.leftChild == null && root.rightChild != null) {
+                    list.add(root.rightChild);
+                } else {
+                    root = root.leftChild;
+                }
+
+            }
+            if (list.size() > 0) {
+                Node node = list.removeFirst();
+                System.out.println(node);
+
+            }
         }
     }
 

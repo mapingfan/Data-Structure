@@ -13,9 +13,15 @@ public interface Tree {
 
     void preOrder(Node root);
 
+    void preOrderV2(Node root);
+
     void inOrder(Node root);
 
+    void inOrderV2(Node root);
+
     void postOrder(Node root);
+
+    void postOrderV2(Node root);
 
     void levelOrder(Node root);
 
