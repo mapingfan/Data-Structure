@@ -2,7 +2,10 @@ package Graph;
 
 import java.util.LinkedList;
 
-public class Graph {
+/**
+ * 无向图,实现了深度,广度,最小生成树三个算法.
+ */
+public class UndirectedGraph {
     private final int MAX_VERTS = 20;
     private Vertex[] vertices;
     private int[][] adjMat = new int[MAX_VERTS][MAX_VERTS];
@@ -11,7 +14,7 @@ public class Graph {
     //    用于辅助深度优先遍历.使用前后记得清空.
     private static LinkedList<Integer> stack = new LinkedList<>();
 
-    public Graph() {
+    public UndirectedGraph() {
         vertices = new Vertex[MAX_VERTS];
         nVerts = 0;
         for (int i = 0; i < MAX_VERTS; i++) {
@@ -37,18 +40,18 @@ public class Graph {
     }
 
     static class Vertex {
-        private char lable;
+        private char label;
         private boolean wasVisited;
 
         public Vertex(char lable) {
-            this.lable = lable;
+            this.label = lable;
             this.wasVisited = false;
         }
     }
 
     public void displayVertex(int v) {
         if (v < nVerts && v >= 0)
-            System.out.println(vertices[v].lable);
+            System.out.println(vertices[v].label);
     }
 
     //    返回顶点v相邻且没有被访问过的顶点.返回-1表示没有找到.
@@ -85,14 +88,21 @@ public class Graph {
         }
     }
 
-    //递归遍历.思想如下,访问当前节点,然后递归访问当前节点的未访问过的邻接节点.
-////    递归的出口是什么?
+
+    /**
+     * 深度优先遍历的递归算法,我想了好久,最后看了下答案才实现.其实也和我最近看的回溯算法有关系,导致刚刚理解递归算法的时候一直
+     * 在想这个算法什么适合回溯.其实我做的应该事类比二叉树的前序遍历算法.
+     * 访问跟节点,递归访问根节点的左右子树.类比到图中,应该就是访问指定顶点,递归访问指定顶点的所有相邻顶点.
+     * 图也就是多叉,并且回遇到相交,所以需要标志位判断是否已经访问过.
+     */
     private void dfsV2(int v) {
-        if (vertices[v].wasVisited) {
-            return;
-        }
         vertices[v].wasVisited = true;
         displayVertex(v);
+        for (int i = 0; i < nVerts; i++) {
+            if (i != v && vertices[i].wasVisited == false && adjMat[v][i] == 1) {
+                dfsV2(i);
+            }
+        }
 
     }
 
@@ -146,9 +156,9 @@ public class Graph {
         while (!stack.isEmpty()) {
             Integer current = stack.peekFirst();
             Integer adj = getAdjUnvisitedVertex(current);
-            if (adj != -1) {
-                vertices[adj].wasVisited = true;
-                displayVertex(current);
+                if (adj != -1) {
+                    vertices[adj].wasVisited = true;
+                    displayVertex(current);
                 displayVertex(adj);
                 stack.addFirst(adj);
             } else {
@@ -158,7 +168,7 @@ public class Graph {
     }
 
     public static void main(String[] args) {
-        Graph graph = new Graph();
+        UndirectedGraph graph = new UndirectedGraph();
         graph.addVertex('A');
         graph.addVertex('B');
         graph.addVertex('C');
@@ -169,7 +179,7 @@ public class Graph {
         graph.addEdge(0, 3);
         graph.addEdge(3, 4);
         System.out.println("Visits: ");
-        graph.mst();
+        graph.dfs(0);
         System.out.println("---");
     }
 
