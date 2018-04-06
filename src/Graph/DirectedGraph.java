@@ -1,6 +1,5 @@
 package Graph;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 
@@ -9,14 +8,14 @@ import java.util.LinkedList;
  */
 public class DirectedGraph {
 
-    private final int MAX_VERTS = 20;
-    private Vertex[] vertices;
-    private int[][] adjMat = new int[MAX_VERTS][MAX_VERTS];
-    private int[][] adjMatCopy = new int[MAX_VERTS][MAX_VERTS];
-    private int[] arrayList = new int[MAX_VERTS];
-    private int index ;
-    private int nVerts;
-    private LinkedList<Character> sortedArray = new LinkedList<>();
+    private final int MAX_VERTS = 20;   //图中允许存放的最大顶点数,此处设置为20.
+    private Vertex[] vertices;         //容纳顶点数组.
+    private int[][] adjMat = new int[MAX_VERTS][MAX_VERTS];  //邻接矩阵,存放边的关系.
+    private int[][] adjMatCopy = new int[MAX_VERTS][MAX_VERTS];  //因为topo排序时,需要删除边,所以这个地方拷贝一份边的数组.
+    private int[] arrayList = new int[MAX_VERTS];  //服务于topo排序,用于保存被删除的节点.
+    private int index ; //服务于上面的arrayList,用作添加元素的下标.
+    private int nVerts;  //统计当前图中顶点的 个数.
+    private LinkedList<Character> sortedArray = new LinkedList<>();  //存放topo排序的结果.
 
 
     public DirectedGraph() {
@@ -31,7 +30,7 @@ public class DirectedGraph {
 //        for (int i = 0; i < MAX_VERTS; i++) {
 //            arrayList[i] = -1;
 //        }
-        Arrays.fill(arrayList, -1);
+        Arrays.fill(arrayList, -1);  //这种方式更加优雅.
     }
 
     //    add a vertex to the graph
@@ -48,6 +47,10 @@ public class DirectedGraph {
         adjMat[start][end] = 1;
     }
 
+    /**
+     * 顶点类定义.
+     */
+
     static class Vertex {
         private char label;
         private boolean wasVisited;
@@ -58,11 +61,20 @@ public class DirectedGraph {
         }
     }
 
+    /**
+     *
+     * @param v 代表顶点数组中第v个顶点.
+     *          方法用于输出顶点.
+     */
     public void displayVertex(int v) {
         if (v < nVerts && v >= 0)
             System.out.println(vertices[v].label);
     }
 
+
+    /**
+     * 判断value是否在arr数组中.
+     */
     private boolean isInArray(int[] arr, int value) {
         for (int i = 0; i < arr.length; i++) {
             if (arr[i] == value) {
@@ -96,6 +108,9 @@ public class DirectedGraph {
             }
     }
 
+    /**
+     * topo排序的辅助函数,寻找没有后继的顶点.
+     */
     private int findNoSuccessor() {
         boolean isFound = false;
         for (int i = 0; i < nVerts; i++) {
@@ -147,6 +162,5 @@ public class DirectedGraph {
         theGraph.addEdge(6, 7);     // GH
         theGraph.topo();            // do the sort
     }
-
 
 }
