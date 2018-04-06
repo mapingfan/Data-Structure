@@ -9,6 +9,7 @@ public class UndirectedGraph {
     private final int MAX_VERTS = 20;
     private Vertex[] vertices;
     private int[][] adjMat = new int[MAX_VERTS][MAX_VERTS];
+    private int[][] adjMatCopy = new int[MAX_VERTS][MAX_VERTS];
     private int nVerts;
 
     //    用于辅助深度优先遍历.使用前后记得清空.
@@ -156,14 +157,45 @@ public class UndirectedGraph {
         while (!stack.isEmpty()) {
             Integer current = stack.peekFirst();
             Integer adj = getAdjUnvisitedVertex(current);
-                if (adj != -1) {
-                    vertices[adj].wasVisited = true;
-                    displayVertex(current);
+            if (adj != -1) {
+                vertices[adj].wasVisited = true;
+                displayVertex(current);
                 displayVertex(adj);
                 stack.addFirst(adj);
             } else {
                 stack.removeFirst();
             }
+        }
+    }
+
+    public void warshall() {
+        for (int i = 0; i < nVerts; i++) {
+            System.arraycopy(adjMat[i], 0, adjMatCopy[i], 0, adjMat[i].length);
+        }
+        for (int i = 0; i < nVerts; i++) {
+            for (int j = 0; j < nVerts; j++) {
+                for (int k = 0; k < nVerts; k++) {
+                    if (i != j && k != j && k != i) {
+                        if (adjMat[i][j] == 1 && adjMat[j][k] == 1) {
+                            adjMatCopy[i][k] = adjMatCopy[k][i] = 1;
+                        }
+                    }
+                }
+            }
+        }
+//        输出新旧矩阵
+        System.out.println("原矩阵");
+        printMatrix(adjMat);
+        System.out.println("闭包矩阵");
+        printMatrix(adjMatCopy);
+    }
+
+    private void printMatrix(int[][] arr) {
+        for (int i = 0; i < nVerts; i++) {
+            for (int j = 0; j < nVerts; j++) {
+                System.out.print(arr[i][j] + " ");
+            }
+            System.out.println();
         }
     }
 
@@ -174,12 +206,13 @@ public class UndirectedGraph {
         graph.addVertex('C');
         graph.addVertex('D');
         graph.addVertex('E');
-        graph.addEdge(0, 1);
-        graph.addEdge(1, 2);
-        graph.addEdge(0, 3);
+        graph.addEdge(0, 2);
+        graph.addEdge(1, 0);
         graph.addEdge(3, 4);
+        graph.addEdge(1, 4);
+        graph.addEdge(4, 2);
         System.out.println("Visits: ");
-        graph.dfs(0);
+        graph.warshall();
         System.out.println("---");
     }
 
