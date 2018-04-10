@@ -41,6 +41,7 @@ public class LCS {
     }
 
     static int[][] dp = new int[7][6];
+
     private static int dp_lcs_V2(char[] arrA, char[] arrB, int aS, int bS) {
 
         if (arrA[arrA.length - 1] == arrB[arrB.length - 1]) {
@@ -73,48 +74,6 @@ public class LCS {
     }
 
 
-    //    下面用动态规划实现一次.
-    /*static int[][] dp = new int[7][6];
-
-    private static int dp_lcs(char[] arrA, char[] arrB, int aS, int bS) {
-        if (dp[aS][bS] != 0) {
-            return dp[aS][bS];
-        }
-        if (aS == arrA.length - 1) {
-            if (contain(arrB, arrA[aS])) {
-//                for (int i = 0; i < arrB.length; i++) {
-//                    dp[aS][i] = 1;
-//                }
-                return 1;
-            } else {
-                return 0;
-            }
-        }
-        if (bS == arrB.length - 1) {
-            if (contain(arrA, arrB[bS])) {
-//                for (int i = 0; i < arrA.length; i++) {
-//                    dp[bS][i] = 1;
-//                }
-                return 1;
-            } else {
-                return 0;
-            }
-        }
-        if (arrA[aS] == arrB[bS]) {
-            if (dp[aS + 1][bS + 1] == 0) {
-                dp[aS + 1][bS + 1] = rec_lcs(arrA, arrB, aS + 1, arrA.length - 1, bS + 1, arrB.length - 1) + 1;
-            }
-            return dp[aS][bS] = dp[aS + 1][bS + 1];
-        } else {
-            if (dp[aS + 1][bS] == 0) {
-                dp[aS + 1][bS] = rec_lcs(arrA, arrB, aS + 1, arrA.length - 1, bS, arrB.length - 1);
-            }
-            if (dp[aS][bS + 1] == 0) {
-                dp[aS][bS + 1] = rec_lcs(arrA, arrB, aS, arrA.length - 1, bS + 1, arrB.length - 1);
-            }
-            return dp[aS][bS] = Math.max(dp[aS + 1][bS], dp[aS][bS + 1]);
-        }
-    }*/
 
     private static boolean contain(char[] arr, char value) {
         //数组arr中是否包含 value值
@@ -141,45 +100,37 @@ public class LCS {
             System.out.println();
         }
         System.out.println("输出最大序列");
-        for (int i = 0; i < A.length-1; i++) {
-            for (int j = 0; j < B.length-1; j++) {
-                if (dp[i + 1][j + 1] > dp[i][j + 1]) {
-                    if (dp[i + 1][j + 1] > dp[i + 1][j]) {
-                        if (A[i + 1] == B[j + 1]) {
-
-                            System.out.println(A[i + 1]);
-                        }
-                    } else {
-                        if (A[i + 1] == B[j]) {
-                            System.out.println(A[i + 1]);
-                        }
-                    }
+        int aI = 0;
+        int bI = 0;
+        while (aI < A.length - 1 && bI < B.length - 1) {
+            if (dp[aI + 1][bI + 1] == dp[aI][bI]) {
+                bI += 1;
+                aI += 1;
+            } else {
+                if (A[aI] != B[bI] && A[aI + 1] == B[bI] && dp[aI + 1][bI] > dp[aI][bI + 1]) {
+                    aI += 1;
                 } else {
-                    if (dp[i][j + 1] > dp[i + 1][j]) {
-                        if (A[i] == B[j + 1]) {
-
-                            System.out.println(A[i]);
-                        }
-                    } else {
-                        if (A[i + 1] == B[j]) {
-                            System.out.println(A[i + 1]);
-                        }
+                    if (A[aI] != B[bI] && A[aI] == B[bI + 1]) {
+                        bI += 1;
                     }
                 }
             }
+            if (A[aI] == B[bI]) {
+                System.out.println(A[aI]);
+            }
+
         }
 
     }
 }
 
 /**
-
-      0 1 2 3 4 5
-   0  4 3 3 2 1 0
-   1  4 3 3 2 1 0
-   2  4 3 3 2 1 0
-   3  4 3 2 2 1 0
-   4  3 3 2 2 1 0
-   5  2 2 2 2 1 1
-   6  0 0 0 0 1 0
+ *    0 1 2 3 4 5
+ * 0  4 3 3 2 1 0
+ * 1  4 3 3 2 1 0
+ * 2  4 3 3 2 1 0
+ * 3  4 3 2 2 1 0
+ * 4  3 3 2 2 1 0
+ * 5  2 2 2 2 1 1
+ * 6  0 0 0 0 1 0
  */
