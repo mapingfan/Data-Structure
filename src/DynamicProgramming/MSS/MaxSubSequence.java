@@ -4,31 +4,24 @@ import java.util.Arrays;
 
 /**
  * 最大连续子列和问题.
- * 分析问题: 子列的起始下标为s,结束下标为e,数列为A,函数为f(s,e)
- * if A[s] < 0&&A[e]>0 > ----> f(s,e) = f(s+1,e)
- * if A[s] > 0&&A[e]<0 > ----> f(s,e) = f(s,e-1)
- * if s==e, 那么 return A[s];
- * <p>
+ *
  * 若包含i项,不包含j项 ->  f(i,j) = A[i]+f(i+1,j-1);  //分析错误.
  * 若包含i项,也包含j项 ->  f(i,j) = sum(arr,i,j);
  * 若不包含i项,但包含j项 -> f(i,j) = f(i+1,j-1)+A[j]  //分析错误.
  * 若不包含i项,不包含j项 -> (i,j)　＝　f(i+1,j-1).
  * <p>
- * <p>
  * 若包含i项,不包含j项 ->  f(i,j) = f(i,j-1);  -->
  * 若包含i项,也包含j项 ->  f(i,j) = sum(arr,i,j);
  * 若不包含i项,但包含j项 -> f(i,j) = f(i+1,j)
  * 若不包含i项,不包含j项 -> (i,j)　＝　f(i+1,j-1).
- * <p>
- * f(i,j)=max(A[i]+f(i+1,j-1),sum(arr,i,j),f(i+1,j-1)+A[j],f(i+1,j-1)).
- * if( i==j)
- * return A[i].
- * sum(i,j,arr) = .
- * max(a,b,c,d).
  */
 public class MaxSubSequence {
     //f(i,j)=max(A[i]+f(i+1,j-1),sum(arr,i,j),f(i+1,j-1)+A[j],f(i+1,j-1)).
     private static int maxSubSequence(int s, int e, int[] array) {
+        if (isAllNegative(array)) {
+            Arrays.sort(array);
+            return array[array.length - 1];
+        }
         if (s == e) {
             return array[s];
         } else if (s > e) {
@@ -83,11 +76,63 @@ public class MaxSubSequence {
         return array[array.length - 1];
     }
 
+    private static int maxSubSequenceV2(int[] arr) {
+        int max = 0;
+        for (int i = 0; i < arr.length; i++) {
+            int currentSum = 0;
+            for (int j = i; j < arr.length; j++) {
+                currentSum += arr[j];
+                if (max < currentSum) {
+                    max = currentSum;
+                }
+            }
+        }
+        return max;
+    }
+
+    /**
+     * O(n)解决问题:
+     * 用到一个小技巧,下面总结下.
+     * 找到数列中所有连续和>0的段.用sumEndingHere记录.sumEndingHere可能是递减的,
+     * 但是我们用sumSoFar记录了迄今为止的最大值.
+     * 当sumEndingHere小于0时候,设置为0,寻找下一连续段>0的.
+     * 全负数无法处理,需要加额外坚持.
+     */
+    private static int maxSubSequenceV3(int[] arr) {
+        if (isAllNegative(arr)) {
+            Arrays.sort(arr);
+            return arr[arr.length - 1];
+        }
+        int sumSoFar = 0, sumEndingHere = 0;
+        for (int i = 0; i < arr.length; i++) {
+            sumEndingHere += arr[i];
+            if (sumEndingHere < 0) {
+                sumEndingHere = 0;
+                continue;
+            }
+            if (sumSoFar < sumEndingHere) {
+                sumSoFar = sumEndingHere;
+            }
+        }
+        return sumSoFar;
+    }
+
+    private static boolean isAllNegative(int[] arr) {
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] > 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+
     public static void main(String[] args) {
 //        int[] array = {1, -5, 8, 3, -4, 15, -8};
 //        int[] array = {-2, 11, -4, 13, -5, 2};
-        int[] array = {1, -3, 4, -2, -1, 6};
+        int[] array = {-2, -3, -4, -2, -3, -6};
         System.out.println(maxSubSequence(0, array.length - 1, array));
+        System.out.println(maxSubSequenceV3(array));
 
     }
 
