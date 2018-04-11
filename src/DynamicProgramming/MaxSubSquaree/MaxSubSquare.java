@@ -13,7 +13,7 @@ package DynamicProgramming.MaxSubSquaree;
  * 最大方阵肉眼可见,但是如何用代码求呢?
  * <p>
  * 这个地方先把答案抄写下来.
- * 1) 原矩阵为A[m][n],基于这个矩阵构造一个L[m][n],
+ * 1) 原矩阵为A[m][n],基于这个矩阵构造一个L[m][n], L[i][j]表示包括A[i][j]在内的值全为1的子方阵的大小.
  * 2) 把L[m][n]的第一行第一设置同A[m][n]一样.
  * 3) 对于L中的其他元素,按照下面公司计算:
  * if(A[i][j]!=0){
@@ -31,6 +31,11 @@ package DynamicProgramming.MaxSubSquaree;
  * }
  *
  * 时空复杂度都是O(mn).
+ * 查阅了许多资料,终于把这个问题搞明白了.
+ * 可以参考这个链接:http://hijob0533.blog.163.com/blog/static/189626274201152943040374
+ * 具体实现明天写.
+ *
+ *
  */
 public class MaxSubSquare {
 }
