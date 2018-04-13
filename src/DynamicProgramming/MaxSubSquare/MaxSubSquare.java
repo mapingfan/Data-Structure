@@ -1,4 +1,4 @@
-package DynamicProgramming.MaxSubSquaree;
+package DynamicProgramming.MaxSubSquare;
 
 import java.util.Arrays;
 
