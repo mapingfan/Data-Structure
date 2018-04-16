@@ -122,7 +122,8 @@ public class LCS {
                     }
                 }
             }
-            if (A[aI] == B[bI]) {
+            if (A[aI] == B[bI])
+            {
                 System.out.println(A[aI]);
             }
 
