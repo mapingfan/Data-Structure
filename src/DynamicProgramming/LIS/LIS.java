@@ -77,7 +77,7 @@ public class LIS {
             int max = 0;
             for (int i = n - 2; i >= 0; i--) {
                 if (dp[i] == 0) {
-                    dp[i] = rec_lis(arr, i + 1);
+                    dp[i] = dp_lis(arr, i + 1);
                 }
                 if (arr[i] < arr[n - 1]) {
                     if (max < dp[i]) {
