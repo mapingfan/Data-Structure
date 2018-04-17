@@ -22,10 +22,7 @@ public class ShuffleArray {
         if (right - left == 1) {
             return;
         }
-        if (left == right) {
-            return;
-        }
-        int mid = left + (right - left) / 2;
+        int mid = left + (right - left) / 2;  //注意算中值时,要加上左边的下标.
         int leftHalfStart = left + (mid - left) / 2 + 1;
         int rightHalfEnd = mid + 1 + (right - (mid + 1)) / 2;
         for (int i = leftHalfStart; i < leftHalfStart + (rightHalfEnd - leftHalfStart + 1) / 2; i++) {
