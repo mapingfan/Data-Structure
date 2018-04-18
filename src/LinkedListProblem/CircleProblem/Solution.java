@@ -43,13 +43,14 @@ public class Solution {
      * 对空指针求next,会异常报错.为了避免这种情况,在循环条件进行判断.
      * 但是对于走一步的其实不需要.即使已经到了最后一个元素,下一个最多是Null,下次循环就结束了.
      * 但是对于这种走多步的,判断是必要的.
-     *
-     * @param head
-     * @return
+     * <p>
+     * -----------------------------------------------
+     * 经过实际代码验证,上面的考虑还是有欠缺.如果fastPtr.next=null,那么如果此时在求next,那必然要报错.
+     * 所以对于这种连续求next的行为要谨慎.
      */
     private static boolean judgeV2(Node head) {
         Node slowPtr = head, fastPtr = head;
-        while (fastPtr.next != null && slowPtr != null && slowPtr.next != null && fastPtr != null && fastPtr.next.next != null) {
+        while (fastPtr.next != null && slowPtr != null && fastPtr != null && fastPtr.next.next != null) {
             slowPtr = slowPtr.next;
 //            fastPtr = fastPtr.next.next; //这个地方有坑,如果fastPtr.next已经等于null,那么直接退出.
             fastPtr = fastPtr.next;
@@ -58,7 +59,7 @@ public class Solution {
             } else {
                 return false;
             }
-            if (fastPtr==null){
+            if (fastPtr == null) {
                 return false;
             }
             if (slowPtr == fastPtr) {
@@ -82,10 +83,7 @@ public class Solution {
         node5.next = node4;
         System.out.println(judge(head));
         System.out.println(judgeV2(head));
-
     }
-
-
 }
 
 
