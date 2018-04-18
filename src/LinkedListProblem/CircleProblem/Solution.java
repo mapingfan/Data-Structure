@@ -1,9 +1,6 @@
 package LinkedListProblem.CircleProblem;
 
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * 判断链表中是否存在环.
@@ -26,9 +23,11 @@ public class Solution {
     //head指向第一个节点的位置.
     private static boolean judge(Node head) {
         Set<Node> set = new HashSet<>();
+        int count = 0;
         while (head != null) {
             if (set.contains(head)) {
                 return true;
+
             }
             set.add(head); //把第一个节点的引用存进去.
             head = head.next;
@@ -69,6 +68,46 @@ public class Solution {
         return false;
     }
 
+
+    /**
+     * 成环问题变种,求环的长度.
+     * 仍然用双指针解决.
+     */
+
+    private static int circleSize(Node head) {
+        Node fastPtr = head, slowPtr = head;
+        while (fastPtr != null && fastPtr.next != null && slowPtr != null) {
+            fastPtr = fastPtr.next.next;
+            slowPtr = slowPtr.next;
+            if (slowPtr == fastPtr) {
+                int count = 1;
+                slowPtr = slowPtr.next;
+                while (slowPtr != fastPtr) {
+                    slowPtr = slowPtr.next;
+                    count++;
+                }
+                return count;
+            }
+        }
+        return 0;
+    }
+
+    //返回0代表无环存在.
+    private static int circleSizeV2(Node head) {
+        List<Node> list = new ArrayList<>();
+        Node currentPtr = head;
+        while (currentPtr != null) {
+            if (list.contains(currentPtr)) {
+                int index = list.indexOf(currentPtr);
+                return (list.size() - index);
+            }
+            list.add(currentPtr);
+            currentPtr = currentPtr.next;
+        }
+        return 0;
+    }
+
+
     public static void main(String[] args) {
         Node node1 = new Node(1);
         Node head = node1;
@@ -80,9 +119,13 @@ public class Solution {
         node2.next = node3;
         node3.next = node4;
         node4.next = node5;
-        node5.next = node4;
-        System.out.println(judge(head));
-        System.out.println(judgeV2(head));
+        node5.next = null;
+//        System.out.println(judge(head));
+//        System.out.println(judgeV2(head));
+
+        System.out.println(circleSize(head));
+        System.out.println(circleSizeV2(head));
+
     }
 }
 
