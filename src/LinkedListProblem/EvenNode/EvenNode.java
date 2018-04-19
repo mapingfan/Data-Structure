@@ -1,4 +1,4 @@
-package LinkedListProblem;
+package LinkedListProblem.EvenNode;
 
 /**
  * 判断链表节点的个数是偶数还是级数.
