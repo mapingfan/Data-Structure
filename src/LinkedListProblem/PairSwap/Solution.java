@@ -54,6 +54,29 @@ public class Solution {
         return head;
     }
 
+    private static Node rec_solution(Node head) {
+        if (head == null) {
+            return null;
+        }
+        if (head.next == null) {
+            return head;
+        }
+        if (head.next.next == null) {
+            //两个节点直接逆转.
+            Node currentA = head;
+            Node currentB = head.next;
+            Node nextB = currentB.next;
+            currentB.next = currentA;
+            currentA.next = nextB;
+            return currentB;
+        }
+        Node result = rec_solution(head.next.next);
+        Node nextHead = head.next;
+        head.next = result;
+        nextHead.next = head;
+        return nextHead;
+    }
+
 //    private static void print(Node head) {
 //        if (head == null) {
 //            return;
@@ -85,11 +108,13 @@ public class Solution {
         node2.next = node3;
         node3.next = node4;
         node4.next = null;
-//        node4.next = node5;
-//        node5.next = node6;
-//        node6.next = node7;
-//        node7.next = null;
-        Node result = solution(head);
+        node4.next = node5;
+        node5.next = node6;
+        node6.next = node7;
+        node7.next = null;
+//        Node result = solution(head);
+
+        Node result = rec_solution(head);
         print(result);
     }
 
