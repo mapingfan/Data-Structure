@@ -1,4 +1,4 @@
-package LinkedListProblem;
+package LinkedListProblem.SplitList;
 
 import java.util.HashMap;
 
