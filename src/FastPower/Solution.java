@@ -129,8 +129,6 @@ public class Solution {
         print(matA);
         System.out.println();
         print(result);
-
-
     }
 
 }
