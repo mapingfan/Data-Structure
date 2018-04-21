@@ -19,6 +19,24 @@ public class Solution {
         return queue;
     }
 
+    //写个递归版本
+
+    private static void rec_reverse(LinkedList<Integer> queue) {
+        if (queue.isEmpty()) {
+            return;
+        } else {
+            Integer first = queue.removeFirst();
+            rec_reverse(queue);
+            queue.addLast(first);
+        }
+    }
+
+    private static LinkedList<Integer> reverse_wrap(LinkedList<Integer> queue) {
+        rec_reverse(queue);
+        return queue;
+    }
+
+
     private static void print(LinkedList<Integer> queue) {
         for (Integer integer : queue) {
             System.out.println(integer);
@@ -34,7 +52,7 @@ public class Solution {
         queue.addLast(5);
         print(queue);
 
-        System.out.println(reverseQueue(queue));
+        System.out.println(reverse_wrap(queue));
 
     }
 }
