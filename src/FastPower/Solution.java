@@ -123,12 +123,10 @@ public class Solution {
         long[][] matA = {
                 {1, 2, 3, 4}, {1, 2, 3, 4}, {1, 2, 3, 4}, {1, 2, 3, 4}
         };
-
         long[][] result = fastPower(matA, 3);
 //        long[][] result = multiply(matA, matA);
         print(matA);
         System.out.println();
         print(result);
     }
-
 }
