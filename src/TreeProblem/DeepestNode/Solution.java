@@ -1,4 +1,4 @@
-package TreeProblem.DepthOfTree.DeepestNode;
+package TreeProblem.DeepestNode;
 
 import TreeProblem.TreeNode;
 

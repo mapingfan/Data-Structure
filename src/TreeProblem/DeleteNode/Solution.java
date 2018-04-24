@@ -1,4 +1,4 @@
-package TreeProblem.DepthOfTree.DeepestNode.DeleteNode;
+package TreeProblem.DeleteNode;
 
 import TreeProblem.TreeNode;
 
