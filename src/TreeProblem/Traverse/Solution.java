@@ -122,7 +122,6 @@ public class Solution {
                 }
             }
         }
-
     }
 
     private static void pre_traverse(Node root) {
