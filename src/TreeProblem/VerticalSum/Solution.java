@@ -8,6 +8,10 @@ import java.util.Map;
 /**
  * 二叉树的垂直和.
  * 利用中序遍历,辅助行数组表进行计算.
+ *
+ *
+ * n个节点,可以组成2^n-n种二叉树.
+ *
  */
 public class Solution {
     static Map<Integer, Integer> result = new HashMap<>();
