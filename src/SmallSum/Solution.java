@@ -54,9 +54,10 @@ public class Solution {
      * 1,3,4 | 2,5 .左右都有序.
      */
 
-    private static void solutionV2(int[] array) {
+    private static int solutionV2(int[] array) {
         mergeSort(array, 0, array.length - 1);
-        System.out.println(res);
+//        System.out.println(res);
+        return res;
     }
 
     public static int solution(int[] array) {
