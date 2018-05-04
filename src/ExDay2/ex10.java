@@ -2,10 +2,9 @@ package ExDay2;
 
 /**
  * 反转单链表
- *
+ * <p>
  * 思路一: 双指针法.
  * 思路二: 递归,不过需要包装下,提前找下头指针
- *
  */
 public class ex10 {
 
@@ -19,7 +18,7 @@ public class ex10 {
     }
 
     private static Node reverse(Node head) {
-        if (head==null||head.next==null) return head;
+        if (head == null || head.next == null) return head;
         Node current = head, next, pre = null;
         while (current != null) {
             next = current.next;
@@ -31,16 +30,17 @@ public class ex10 {
     }
 
     private static Node findNewHead(Node head) {
-        if (head==null) return head;
+        if (head == null) return head;
         Node cur = head;
         while (cur.next != null) {
             cur = cur.next;
         }
         return cur;
     }
+
     //递归反转单链表.这样反转后找不到头节点了,所以需要包装下.
     private static Node rec_reverse(Node head) {
-        if(head==null||head.next==null) return head; //空或者只有一个节点,不用逆转,直接返回.
+        if (head == null || head.next == null) return head; //空或者只有一个节点,不用逆转,直接返回.
         Node tmp = rec_reverse(head.next);
         tmp.next = head;
         head.next = null;
@@ -54,10 +54,10 @@ public class ex10 {
     }
 
     private static void printList(Node head) {
-        if (head==null) return;
+        if (head == null) return;
         Node cur = head;
         while (cur != null) {
-            System.out.print(cur.value+" ");
+            System.out.print(cur.value + " ");
             cur = cur.next;
         }
     }
