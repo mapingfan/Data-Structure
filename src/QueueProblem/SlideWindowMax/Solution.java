@@ -1,4 +1,4 @@
-package QueueProblem.StackQueue.SlideWindowMax;
+package QueueProblem.SlideWindowMax;
 
 import java.util.Arrays;
 import java.util.LinkedList;
