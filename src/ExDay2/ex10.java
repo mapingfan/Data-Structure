@@ -19,12 +19,12 @@ public class ex10 {
 
     private static Node reverse(Node head) {
         if (head == null || head.next == null) return head;
-        Node current = head, next, pre = null;
-        while (current != null) {
-            next = current.next;
-            current.next = pre;
-            pre = current;
-            current = next;
+        Node next, pre = null;
+        while (head != null) {
+            next = head.next;
+            head.next = pre;
+            pre = head;
+            head = next;
         }
         return pre;
     }
