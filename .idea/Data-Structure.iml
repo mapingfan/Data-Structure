@@ -17,8 +17,6 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="library" name="mysql-connector-java-5.1.44-bin" level="project" />
-    <orderEntry type="library" name="jpinyin-1.1.8" level="project" />
-    <orderEntry type="library" name="unidecode-0.0.7" level="project" />
+    <orderEntry type="library" name="lombok" level="project" />
   </component>
 </module>
