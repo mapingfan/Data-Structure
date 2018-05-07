@@ -63,8 +63,8 @@ public class Ex02 {
 
     private static ArrayList<Node> inOrder(Node root, ArrayList<Node> inOrderArray) {
         if (root == null) return null;
-        inOrderArray.add(root);
         inOrder(root.left, inOrderArray);
+        inOrderArray.add(root);
         inOrder(root.right, inOrderArray);
         return inOrderArray;
     }
