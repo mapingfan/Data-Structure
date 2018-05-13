@@ -52,7 +52,7 @@ public class MazeExit {
                         stackArray.pop();
                     }
                 }
-                System.out.println("Find path.");
+                System.out.println("Find pass.");
                 printMaze(cells);
                 return;
             } else {  //if the current position is not the end cell,push the adjoin cell into stack;
@@ -85,7 +85,7 @@ public class MazeExit {
                 }
             }
         }
-        System.out.println("No path found.");
+        System.out.println("No pass found.");
     }
 
     public boolean isValidCell(Cell cell) {
