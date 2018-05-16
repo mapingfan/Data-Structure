@@ -70,29 +70,8 @@ public class Ex06 {
         }
     }
 
-
-
-    private static void print_3(char[] word, int i) {
-        if (i == word.length) {
-//            sb.append(word[i - 1]);
-
-            System.out.print(word[i - 1]);
-            return;
-        }
-        for (int k = 0; k < word.length; k++) {
-            swap(word, i, k);
-            System.out.print(word[i]);
-//            sb.append(word[i]);
-
-            print_3(word, i + 1);
-            swap(word, i, k);
-        }
-    }
-
-
     public static void main(String[] args) {
-        String word = "ab";
-        print_3(word.toCharArray(), 0);
+        String word = "abc";
         System.out.println();
 
     }
