@@ -5,6 +5,7 @@
       <w>dest</w>
       <w>heapify</w>
       <w>lchild</w>
+      <w>manacher</w>
       <w>padromic</w>
       <w>rchild</w>
       <w>topo</w>
