@@ -86,7 +86,7 @@ public class Ex01 {
 
 
     public static void main(String[] args) {
-        String word = "acbdcbbbdbdaaccbcacdacdccababcddabddaaaaaaabdbabcdddaacabacbacbbdabdacddbbadaacbbdcbccacacdabcabacacbbbdcccacdcdcdcbcbabdcdacdddbbabcaccddddddabdacaabccdcabcbcbabacaaaccaccaddabbdadcdacdcdbaadbcabdcdcaaacbcadccbbddbaddcaddcaadcbbcbbdcbdadcddabdddcdbddbbdabaaddcaadd";
+        String word = "aaa";
         System.out.println(lqs(word));
         System.out.println(manacher(word));
     }
