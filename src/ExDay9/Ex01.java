@@ -180,8 +180,6 @@ public class Ex01 {
                 break;
             }
         }
-     /*   int[] array = {3, 5, 3, 1};
-        System.out.println(bfptrt_wrap(array, 3));*/
 
     }
 }
