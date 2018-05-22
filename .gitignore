@@ -24,3 +24,11 @@
 hs_err_pid*
 production
 .idea/workspace.xml
+
+.idea/dataSources.local.xml
+.idea/dataSources.xml
+.idea/dataSources/
+.idea/encodings.xml
+.idea/libraries/
+/.idea/Data-Structure.iml
+/.idea/libraries/
