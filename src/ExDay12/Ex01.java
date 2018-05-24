@@ -1,8 +1,4 @@
 package ExDay12;
-
-import lombok.experimental.var;
-
-import java.util.Arrays;
 import java.util.HashMap;
 
 /**
