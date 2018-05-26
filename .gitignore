@@ -32,3 +32,7 @@ production
 .idea/libraries/
 /.idea/Data-Structure.iml
 /.idea/libraries/
+Data-Structure/
+
+/.idea/
+/.idea/compiler.xml
