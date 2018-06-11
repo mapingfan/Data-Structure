@@ -26,7 +26,9 @@ public class Solution {
         mergeSort(array, mid + 1, r);
         merge(array, l, mid, r);
     }
+
     static int res = 0;
+
     private static void merge(int[] array, int l, int mid, int r) {
         int[] assist = new int[r - l + 1];
         int index = 0, p1 = l, p2 = mid + 1;
