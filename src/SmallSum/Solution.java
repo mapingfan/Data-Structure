@@ -35,11 +35,12 @@ public class Solution {
 
         while (p1 <= mid && p2 <= r) {
             res += array[p1] < array[p2] ? (r - p2 + 1) * array[p1] : 0;
+//            res += array[p1] > array[p2] ? (p1-l)*(r-p2+1) : 0;
             assist[index++] = array[p1] > array[p2] ? array[p2++] : array[p1++];
         }
         while (p1 <= mid) assist[index++] = array[p1++];
         while (p2 <= r) assist[index++] = array[p2++];
-        //拷贝回去
+        //        //拷贝回去
         for (int i = 0; i < assist.length; i++) {
             array[l + i] = assist[i];
         }
@@ -93,6 +94,7 @@ public class Solution {
 //        mergeSort(arr, 0, arr.length - 1);
 //        System.out.println(Arrays.toString(arr));
         solutionV2(arr);
+        System.out.print(res);
 
     }
 
