@@ -1,6 +1,5 @@
 package ExDay2;
 
-import com.sun.org.apache.bcel.internal.generic.IF_ACMPEQ;
 
 import java.util.Arrays;
 
@@ -19,12 +18,12 @@ import java.util.Arrays;
  * 因为肯定存在隔着一个空桶的最大差值,肯定是比桶内最大差值大.
  * <p>
  * 所以可以排除最大差值出现在桶内.只有可能出现在桶之间.
- *
+ * <p>
  * 今天舍友还给我提供了一种思路,对于小数据规模有效.
  * 假设数组最大值为k,那么分配大小为k的桶.每个数一次落到桶中.桶里需要设置标记是否为空桶.并且还要假设数字为正数,局限性比较大
- *
+ * <p>
  * 其实我感觉这个方法其实相当于把数字分段,断段的两端是最大最小值.然后求段之间的最值即可.
- *
+ * <p>
  * <p>
  * 下面代码实现,具体实现可能需要抠很多细节.
  */
@@ -72,7 +71,7 @@ public class ex02 {
             if (!buckets[i].isEmpty) {
                /* int currentDivide = buckets[i].min - pre;
                 if (result < currentDivide) result = currentDivide;*/
-               //优化写法.这种找最值的情况用库函数直接优化掉.
+                //优化写法.这种找最值的情况用库函数直接优化掉.
                 result = Math.max(buckets[i].min - pre, result);
                 pre = buckets[i].max;
             }
@@ -81,10 +80,9 @@ public class ex02 {
     }
 
     /**
-     *
-     * @param smallest 桶中最小值.
-     * @param value 待判断的值
-     * @param step 桶的步长.
+     * @param smallest   桶中最小值.
+     * @param value      待判断的值
+     * @param step       桶的步长.
      * @param bucketSize 桶大小
      * @return 返回给定值应该在哪个桶中.
      */
@@ -103,6 +101,7 @@ public class ex02 {
 
     }
 
+    //下面是对数器
     public static int comparator(int[] array) {
         Arrays.sort(array);
         int result = 0;
